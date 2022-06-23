@@ -178,7 +178,7 @@ func (s *SmartContract) createPrivateCar(APIstub shim.ChaincodeStubInterface, ar
 	type carTransientInput struct {
 		FileName  string `json:"filename"` //the fieldtags are needed to keep case from bouncing around
 		InstanceName string `json:"instancename"`
-		Color string `json:"color"`
+		HashValue string `json:"hashvalue"`
 		Path string `json:"path"`
 		Price string `json:"price"`
 		Key   string `json:"key"`
@@ -358,7 +358,7 @@ func (S *SmartContract) queryCarsByOwner(APIstub shim.ChaincodeStubInterface, ar
 	}
 	path := args[0]
 
-	ownerAndIdResultIterator, err := APIstub.GetStateByPartialCompositeKey("owner~key", []string{owner})
+	ownerAndIdResultIterator, err := APIstub.GetStateByPartialCompositeKey("owner~key", []string{path})
 	if err != nil {
 		return shim.Error(err.Error())
 	}
